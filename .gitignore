@@ -1,0 +1,9 @@
+# User-specific files
+*.suo
+*.user
+*.userprefs
+*.docstates
+
+.vscode/
+.vs/
+build/
