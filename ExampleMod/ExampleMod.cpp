@@ -23,4 +23,5 @@ static void __cdecl DrawModLoaded(Sexy::Widget* self, Sexy::Graphics* g)
 extern "C" __declspec(dllexport) void ModInit(const ModHost* host)
 {
     Algae_AddPostHook(Sexy::TitleScreen_Draw, DrawModLoaded);
+    Algae_Log("ExampleMod initialized!");
 }

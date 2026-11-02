@@ -10,11 +10,17 @@ Algae is currently *very* early in development! The current state of affairs can
 
 ## How to Install
 
-First, go to the [Releases](./releases/latest) page and download the ZIP file from the latest version there. Inside should be a few things that you will need.
+First, go to the [Releases](../../releases/latest) page and download the ZIP file from the latest version there. Inside should be a few things that you will need.
 
 Next, you will need to locate your file directory for Insaniquarium. If you have it on Steam, right-click on it in your Library and select "*Manage -> Browse Local Files*", or use the right-click "*Open file location*" if you have it as a standalone Windows copy (as I have).
 
 Lastly, you will simply need to extract the files from the ZIP into the file directory where your game is located. That's it!
+
+## Installing Mods
+
+Mods, configs and logs will all be found in the same place as Insaniquarium's location for user data: "**C:\ProgramData\PopCap Games\Insaniquarium\Algae**". You may need to create the "Algae" folder if it does not exist yet.
+
+To install mods, you will simply need to drop their files into the "mods" folder in there, and they should be loaded when the game starts up.
 
 ## Building
 
@@ -27,19 +33,21 @@ If you are looking to build the project on Linux or Mac, I will get around to po
 
 ## Writing your own mods
 
-Information will be provided in the Wiki, including setup and documentation.
+Information will eventually be provided in the Wiki, including setup and documentation.
 
 ## Roadmap
 
-Currently (as of 2026/10/31), Algae is able to be used to hook to just one callback (TitleScreen Draw) and call some functions for Graphics and Font to draw "Hello World!" on the top-right of the screen. There is a lot more work to be done, but it's in an early state that I'm happy with publishing.
+Currently (as of 2026/11/02), Algae is able to be used to hook to just one callback (TitleScreen Draw) and call some functions for Graphics and Font to draw "Hello World!" on the top-right of the screen. There is a lot more work to be done, but it's in an early state that I'm happy with publishing.
 
-- [ ] Build out a proper dedicated Logging system
+- [x] Build out a proper logging system
 - [ ] Fix folder structure and naming conventions (unhappy with it at the moment)
+- [ ] Implement config file ini (kinda like Unity Doorstop's)
 - [ ] Identify Steam and non-Steam builds and adjust addressing according to each version
 - [ ] Add more event hooks to the SDK
 - [ ] Add a resource overriding system (add your own assets without overwriting game files)
 - [ ] Add an Algae mod menu on the main menu
 - [ ] Algae SDK versioning?
+- [ ] WinXP (or some baseline OS) compatibility?
 - [ ] Adding new game object types (fish? aliens? items?)
 
 ## AI Disclosure

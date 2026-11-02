@@ -21,12 +21,33 @@ ALGAE_API_DECL bool Algae_Init(const ModHost* host)
     MH_STATUS status = MH_Initialize();
     if (status != MH_OK)
     {
-        return false; // Uh oh
-    }
-    if (!Algae_InstallEventHooks())
+        Algae_Log("[ALGAE] ERROR: MinHook failed to start on SDK side (%s).", MH_StatusToString(status));
         return false;
+    }
+    Algae_Log("[ALGAE] SDK event hooks being installed...");
+    if (!Algae_InstallEventHooks())
+    {
+        Algae_Log("[ALGAE] SDK event hooking error! (May be a different or modified game version?)");
+        return false;
+    }
 
     return true;
+}
+
+ALGAE_API_DECL int Algae_GetVersion()
+{
+    return ALGAE_SDK_VERSION;
+}
+
+ALGAE_API_DECL void Algae_Log(const char* format, ...)
+{
+    // Best way I can think of is pack into buf now so it can be passed over
+    char buf[1024];
+    va_list args;
+    va_start(args, format);
+    vsnprintf(buf, sizeof(buf), format, args);
+    va_end(args);
+    gHost->Log(buf);
 }
 
 ALGAE_API_DECL bool Algae_CreateHook(uintptr_t target, void* hook, void** trampoline)
@@ -37,6 +58,7 @@ ALGAE_API_DECL bool Algae_CreateHook(uintptr_t target, void* hook, void** trampo
         status = MH_EnableHook(targetFunc);
     if (status != MH_OK)
     {
+        Algae_Log("[ALGAE] hooking at 0x%08X failed (%s)", (unsigned)target, MH_StatusToString(status));
         return false;
     }
     return true;

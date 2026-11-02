@@ -26,11 +26,22 @@ namespace Algae
 #define ALGAE_API_DECL extern "C" __declspec(dllimport)
 #endif
 
+#define ALGAE_SDK_VERSION 1
+
 struct ModHost
 {
+    // Info
+    int Version;
+    // Directories
     const wchar_t* GameDir;
+    const wchar_t* AlgaeDir;
     const wchar_t* ModsDir;
+    // Logging
+    void (*Log)(const char* format, ...);
 };
+
+ALGAE_API_DECL int Algae_GetVersion();
+ALGAE_API_DECL void Algae_Log(const char* format, ...);
 
 // Creates and returns an event hook via MinHook to a function at the target address,
 // and outputs a "trampoline" function to call as well.
