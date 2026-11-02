@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlgaeBloom", "bloom\AlgaeBloom.vcxproj", "{F06A5EA3-16BA-448E-BB43-ADDBD5DF428F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlgaeSDK", "sdk\AlgaeSDK.vcxproj", "{2554027B-2F13-4CFF-A3A4-5C710B454FD2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlgaeSDK", "AlgaeSDK.vcxproj", "{2554027B-2F13-4CFF-A3A4-5C710B454FD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

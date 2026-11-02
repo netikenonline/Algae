@@ -40,7 +40,7 @@ Information will eventually be provided in the Wiki, including setup and documen
 Currently (as of 2026/11/02), Algae is able to be used to hook to just one callback (TitleScreen Draw) and call some functions for Graphics and Font to draw "Hello World!" on the top-right of the screen. There is a lot more work to be done, but it's in an early state that I'm happy with publishing.
 
 - [x] Build out a proper logging system
-- [ ] Fix folder structure and naming conventions (unhappy with it at the moment)
+- [x] Fix folder structure and naming conventions (unhappy with it at the moment)
 - [ ] Implement config file ini (kinda like Unity Doorstop's)
 - [ ] Identify Steam and non-Steam builds and adjust addressing according to each version
 - [ ] Add more event hooks to the SDK

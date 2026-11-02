@@ -31,8 +31,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <PropertyGroup>
     <TargetName>AlgaeSDK</TargetName>
-    <OutDir>$(ProjectDir)..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\build\obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(ProjectDir)build\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)build\obj\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -40,7 +40,7 @@
       <SDLCheck>false</SDLCheck>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\include\;$(ProjectDir)..\deps\minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;$(ProjectDir)deps\minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -60,24 +60,24 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AlgaeSDK.cpp" />
+    <ClCompile Include="src\AlgaeSDK.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\deps\minhook\src\buffer.c" />
-    <ClCompile Include="..\deps\minhook\src\hook.c" />
-    <ClCompile Include="..\deps\minhook\src\trampoline.c" />
-    <ClCompile Include="..\deps\minhook\src\hde\hde32.c" />
+    <ClCompile Include="deps\minhook\src\buffer.c" />
+    <ClCompile Include="deps\minhook\src\hook.c" />
+    <ClCompile Include="deps\minhook\src\trampoline.c" />
+    <ClCompile Include="deps\minhook\src\hde\hde32.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\AlgaeSDK.h" />
-    <ClInclude Include="..\deps\minhook\include\MinHook.h" />
-    <ClInclude Include="..\include\AlgaeTools.h" />
-    <ClInclude Include="..\include\Sexy\Color.h" />
-    <ClInclude Include="..\include\Sexy\Font.h" />
-    <ClInclude Include="..\include\Sexy\Graphics.h" />
-    <ClInclude Include="..\include\Sexy\Res.h" />
-    <ClInclude Include="..\include\Sexy\TitleScreen.h" />
-    <ClInclude Include="..\include\Sexy\Widget.h" />
+    <ClInclude Include="include\AlgaeSDK.h" />
+    <ClInclude Include="deps\minhook\include\MinHook.h" />
+    <ClInclude Include="include\AlgaeTools.h" />
+    <ClInclude Include="include\Sexy\Color.h" />
+    <ClInclude Include="include\Sexy\Font.h" />
+    <ClInclude Include="include\Sexy\Graphics.h" />
+    <ClInclude Include="include\Sexy\Res.h" />
+    <ClInclude Include="include\Sexy\TitleScreen.h" />
+    <ClInclude Include="include\Sexy\Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
