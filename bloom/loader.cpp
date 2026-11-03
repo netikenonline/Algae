@@ -20,6 +20,9 @@ static std::chrono::steady_clock::time_point algaeStartTime;
 
 static void Log(const char* format, ...)
 {
+    // TODO possible chance to overrun if we're coming from Algae_Log that has a 1024 buffer too
+    // Is 1024 good enough for logging? Is this even worth worrying over?
+
     auto algaeNowTime = std::chrono::steady_clock::now();
     unsigned long long ms = std::chrono::duration_cast
         <std::chrono::milliseconds>(algaeNowTime - algaeStartTime).count();
@@ -28,7 +31,7 @@ static void Log(const char* format, ...)
     int tLen = snprintf(buf, sizeof(buf), "[%0.3f] ", (ms / 1000.0));
     va_list args;
     va_start(args, format);
-    int len = vsnprintf(buf + tLen, sizeof(buf) - tLen, format, args);
+    int len = vsnprintf(buf + tLen, sizeof(buf) - (tLen+1), format, args);
     len += tLen;
     va_end(args);
 

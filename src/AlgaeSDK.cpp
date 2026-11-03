@@ -92,7 +92,8 @@ static void RunPreHooks(uintptr_t func, Args... args)
         }
         __except (callbackFault = GetExceptionCode(), EXCEPTION_EXECUTE_HANDLER)
         {
-            // TODO handle exceptions n shiz
+            // TODO build SEH exception mapping... and probably a hook name mapping too, would be helpful.
+            Algae_Log("[ALGAE] a pre-hook on 0x%08X crashed with exception 0x%08X!", (unsigned)func, (unsigned)callbackFault);
         }
     }
 }
@@ -110,7 +111,8 @@ static void RunPostHooks(uintptr_t func, Args... args)
         }
         __except (callbackFault = GetExceptionCode(), EXCEPTION_EXECUTE_HANDLER)
         {
-            // TODO handle exceptions n shiz
+            // TODO build SEH exception mapping... and probably a hook name mapping too, would be helpful.
+            Algae_Log("[ALGAE] a post-hook on 0x%08X crashed with exception 0x%08X!", (unsigned)func, (unsigned)callbackFault);
         }
     }
 }
