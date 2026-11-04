@@ -3,8 +3,10 @@
 #include <windows.h>
 #include <string>
 
+#include <Sexy/Board.h>
 #include <Sexy/Color.h>
 #include <Sexy/Font.h>
+#include <Sexy/GameObject.h>
 #include <Sexy/Graphics.h>
 #include <Sexy/Res.h>
 #include <Sexy/TitleScreen.h>

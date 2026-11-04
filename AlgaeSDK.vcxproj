@@ -72,8 +72,10 @@
     <ClInclude Include="include\AlgaeSDK.h" />
     <ClInclude Include="deps\minhook\include\MinHook.h" />
     <ClInclude Include="include\AlgaeTools.h" />
+    <ClInclude Include="include\Sexy\Board.h" />
     <ClInclude Include="include\Sexy\Color.h" />
     <ClInclude Include="include\Sexy\Font.h" />
+    <ClInclude Include="include\Sexy\GameObject.h" />
     <ClInclude Include="include\Sexy\Graphics.h" />
     <ClInclude Include="include\Sexy\Res.h" />
     <ClInclude Include="include\Sexy\TitleScreen.h" />
