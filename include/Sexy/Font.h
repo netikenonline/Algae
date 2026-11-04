@@ -8,6 +8,10 @@ namespace Sexy
     class Font
     {
     public:
-        inline int StringWidth(const std::string& str) { return Algae::CallVirtual<int>(Font_StringWidth_Offset, this, &str); }
+        inline int StringWidth(const std::string& str)
+        {
+            Algae::OldString oStr(str);
+            return Algae::CallVirtual<int>(Font_StringWidth_Offset, this, &oStr);
+        }
     };
 }

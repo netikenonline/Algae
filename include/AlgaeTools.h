@@ -30,4 +30,39 @@ namespace Algae
     {
         return *reinterpret_cast<T*>(addr);
     }
+
+    // C++ has changed how std::strings work from 2005 to modern day, so this class
+    // serves as an interop medium and allows strings to "just work" for modders.
+    class OldString
+    {
+    public:
+        OldString(std::string str) { SetInternal(str); }
+        std::string ToString() const { return std::string(ToCStr()); };
+        const char* ToCStr() const { return { (mRes < 16) ? mBuf : mPtr }; };
+    private:
+        // Handle our own value assignment from modern string to old string layout
+        void SetInternal(std::string str)
+        {
+            mSize = str.size();
+            if (mSize < 16)
+            {
+                mRes = 15;
+                memcpy(mBuf, str.data(), mSize);
+                mBuf[mSize] = '\0';
+            }
+            else
+            {
+                mRes = mSize;
+                delete[] mPtr;
+                mPtr = new char[mSize + 1];
+                std::strncpy(mPtr, str.data(), mSize + 1);
+                mPtr[mSize] = '\0';
+            }
+        }
+
+        void* mAlloc = nullptr; // basically unused for us
+        union { char mBuf[16]; char* mPtr = nullptr; };
+        size_t mSize = 0;
+        size_t mRes = 15;
+    };
 }

@@ -16,6 +16,10 @@ namespace Sexy
         inline void     SetFont(Font* font) { Algae::Call<void>(Graphics_SetFont, this, font); }
         inline Color    GetColor() { return *Algae::Call<const Color*>(Graphics_GetColor, this); }
         inline void     SetColor(const Color& color) { Algae::Call<void>(Graphics_SetColor, this, &color); }
-        inline void     DrawString(const std::string& str, int x, int y) { Algae::Call<void>(Graphics_DrawString, this, &str, x, y); }
+        inline void     DrawString(const std::string& str, int x, int y)
+        {
+            Algae::OldString oStr(str);
+            Algae::Call<void>(Graphics_DrawString, this, &oStr, x, y);
+        }
     };
 }

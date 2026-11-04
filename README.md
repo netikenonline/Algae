@@ -4,9 +4,9 @@ This project is aimed to provide a platform for modifying Insaniquarium by PopCa
 
 It is heavily inspired by [Haggle](https://github.com/PeggleCommunity/haggle), a similar effort done to provide a modding platform for Peggle Deluxe built on the same game framework, SexyAppFramework.
 
-Algae is currently *very* early in development! The current state of affairs can be seen down in the [Roadmap](#roadmap) section.
+Algae is currently *very* early in development! The current state of affairs can be seen down in the [Roadmap](#roadmap) section. If you have a suggestion or comment, please open an [Issue](../../issues) and label it as such, it would be much appreciated!
 
-**Note:** Algae is currently **not** ready for the Steam version of Insaniquarium! I have built the project against a standalone copy, but I will get around to it soon!
+**Note:** Algae is currently **not** ready for the Steam version of Insaniquarium! I have built the project against a standalone copy, but I will get around to it soon.
 
 ## How to Install
 
@@ -25,12 +25,11 @@ To install mods, you will simply need to drop their files into the "mods" folder
 ## Building
 
 The project uses Visual Studio 2022. More info in the future on how to build, but it should be as straightforward as this:
-  * Build the solution in the "Debug - Win32" configuration
-    * Release is not fully working yet due to std::string interop issues!
-  * Take the output DLLs (**winmm.dll**, **AlgaeSDK.dll**) and drop them in the same folder as your Insaniquarium installation
+  * Build the solution in the "Release - Win32" configuration (or Debug if you need to, y'know, debug anything).
+  * Take the output DLLs (**winmm.dll**, **AlgaeSDK.dll**) and drop them in the same folder as your Insaniquarium installation.
   * Done!
 
-If you are looking to build the project on Linux or Mac, I will get around to porting over to MinGW or some other solution eventually!
+If you are looking to build the project on Linux or Mac, I will get around to looking into a more portable solution eventually!
 
 ## Writing your own mods
 
@@ -38,14 +37,15 @@ Information will eventually be provided in the Wiki, including setup and documen
 
 ## Roadmap
 
-Currently (as of 2026/11/02), Algae is able to be used to hook to just one callback (TitleScreen Draw) and call some functions for Graphics and Font to draw "Hello World!" on the top-right of the screen. There is a lot more work to be done, but it's in an early state that I'm happy with publishing.
+Currently (as of 2026/11/03), Algae is severely under-developed, with just one hook (TitleScreen::Draw) and some basic functions for getting text up on the loading screen. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
 
 - [x] Build out a proper logging system
 - [x] Fix folder structure and naming conventions (unhappy with it at the moment)
-- [ ] Build out std::string interop (turns out we can't just pass a 2022 std::string to 2005, need to figure out a solution)
+- [x] Build out std::string interop (turns out we can't just pass a 2022 std::string to 2005, need to figure out a solution)
 - [ ] Implement config file ini (kinda like Unity Doorstop's)
 - [x] Identify Steam and non-Steam builds and adjust addressing according to each version
   - No difference, learned more while testing and googling, should have more info soon
+- [ ] Work on an SDK versioning scheme I actually like
 - [ ] Add more event hooks to the SDK
 - [ ] Add a resource overriding system (add your own assets without overwriting game files)
 - [ ] Add an Algae mod menu on the main menu
