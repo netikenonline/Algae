@@ -2,7 +2,9 @@
 #include <AlgaeSDK.h>
 #include <AlgaeHooks.h>
 #include <MinHook.h>
+#include <sstream>
 
+static void OnTitleScreenDraw(Sexy::TitleScreen* self, Sexy::Graphics* g);
 
 static const ModHost* gHost = nullptr;
 
@@ -23,6 +25,8 @@ ALGAE_API_DECL bool Algae_Init(const ModHost* host)
         Algae_Log("[ALGAE] SDK event hooking error! (May be a different or modified game version?)");
         return false;
     }
+
+    Algae_AddPostHook(Sexy::TitleScreen_Draw, OnTitleScreenDraw);
 
     return true;
 }
@@ -126,4 +130,26 @@ void Detour_RunInternal(uintptr_t funcPtr, T self, void* edx, Args... args)
         Algae::CallInternal<void>(algaeFuncStore[funcPtr], self, edx, args...);
         RunPostHooks(funcPtr, self, args...);
     }
+}
+
+static void OnTitleScreenDraw(Sexy::TitleScreen* self, Sexy::Graphics* g)
+{
+    Sexy::Font* font = Algae::ReadGlobal<Sexy::Font*>(Sexy::FONT_CONTINUUMBOLD14);
+    Sexy::Font* fontOutline = Algae::ReadGlobal<Sexy::Font*>(Sexy::FONT_CONTINUUMBOLD14OUTLINE);
+    std::stringstream ss;
+    ss << "Algae v" << ALGAE_SDK_VERSION << " loaded! (" << gHost->ModCount;
+    if (gHost->ModCount == 1)
+        ss << " mod)";
+    else
+        ss << " mods)";
+
+    Sexy::Font* oldFont = g->GetFont();
+    Sexy::Color oldColor = g->GetColor();
+
+    g->SetFont(font);
+    g->SetColor(Sexy::Color{ 180, 255, 240, 255 });
+    Sexy::GameUtil::DrawStringWithOutline(g, ss.str(), 6, 480 - 10, fontOutline, Sexy::Color{ 30, 50, 60, 64 }.ToInt());
+
+    g->SetFont(oldFont);
+    g->SetColor(oldColor);
 }

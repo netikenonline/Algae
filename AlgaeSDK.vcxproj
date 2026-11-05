@@ -77,6 +77,7 @@
     <ClInclude Include="include\Sexy\Color.h" />
     <ClInclude Include="include\Sexy\Font.h" />
     <ClInclude Include="include\Sexy\GameObject.h" />
+    <ClInclude Include="include\Sexy\GameUtil.h" />
     <ClInclude Include="include\Sexy\Graphics.h" />
     <ClInclude Include="include\Sexy\Res.h" />
     <ClInclude Include="include\Sexy\TitleScreen.h" />

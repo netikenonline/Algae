@@ -48,7 +48,7 @@ static void Log(const char* format, ...)
     }
 }
 
-static void LoadMods()
+static int LoadMods()
 {
     // TODO recursive file search at some point please!
 
@@ -60,7 +60,7 @@ static void LoadMods()
     if (find == INVALID_HANDLE_VALUE)
     {
         Log("[ALGAE] No mods found!");
-        return; // No mods found (not an error... hopefully)
+        return 0; // No mods found (not an error... hopefully)
     }
 
     int modCounter = 0;
@@ -86,6 +86,8 @@ static void LoadMods()
     } while (FindNextFileW(find, &findData));
     Log("[ALGAE] Finished mod initialization (%d mod(s) loaded).", modCounter);
     FindClose(find);
+
+    return modCounter;
 }
 
 static int WINAPI Hook_WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdLine, int cmdShow)
@@ -117,7 +119,8 @@ static int WINAPI Hook_WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR
 
         Log("[ALGAE] Algae SDK initialization finished! Loading mods.");
 
-        LoadMods();
+        int modCount = LoadMods();
+        gHost.ModCount = modCount;
     }
 
     Log("[ALGAE] Algae setup finished. Starting game now!");

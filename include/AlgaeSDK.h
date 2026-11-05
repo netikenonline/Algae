@@ -8,6 +8,7 @@
 #include <Sexy/Font.h>
 #include <Sexy/GameObject.h>
 #include <Sexy/Graphics.h>
+#include <Sexy/GameUtil.h>
 #include <Sexy/Res.h>
 #include <Sexy/TitleScreen.h>
 #include <Sexy/Widget.h>
@@ -34,6 +35,7 @@ struct ModHost
 {
     // Info
     int Version;
+    int ModCount;
     // Directories
     const wchar_t* GameDir;
     const wchar_t* AlgaeDir;

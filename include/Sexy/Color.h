@@ -10,5 +10,7 @@ namespace Sexy
         int mGreen;
         int mBlue;
         int mAlpha;
+
+        int ToInt() const { return (mAlpha << 24) | (mRed << 16) | (mGreen << 8) | (mBlue); }
     };
 }
