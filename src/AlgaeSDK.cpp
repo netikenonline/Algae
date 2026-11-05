@@ -1,15 +1,8 @@
 #define ALGAE_SDK_BUILD
 #include <AlgaeSDK.h>
+#include <AlgaeHooks.h>
 #include <MinHook.h>
-#include <vector>
-#include <unordered_map>
 
-bool Algae_InstallEventHooks();
-
-std::unordered_map<uintptr_t, uintptr_t> algaeFuncStore;
-std::unordered_map<uintptr_t, uintptr_t> algaeHookOverrides;
-std::unordered_map<uintptr_t, std::vector<uintptr_t>> algaePreHooks;
-std::unordered_map<uintptr_t, std::vector<uintptr_t>> algaePostHooks;
 
 static const ModHost* gHost = nullptr;
 
@@ -118,7 +111,7 @@ static void RunPostHooks(uintptr_t func, Args... args)
 }
 
 template<class T, class... Args>
-static void Detour_RunInternal(uintptr_t funcPtr, T self, void* edx, Args... args)
+void Detour_RunInternal(uintptr_t funcPtr, T self, void* edx, Args... args)
 {
     auto overrideKV = algaeHookOverrides.find(funcPtr);
     if (overrideKV != algaeHookOverrides.end())
@@ -135,39 +128,16 @@ static void Detour_RunInternal(uintptr_t funcPtr, T self, void* edx, Args... arg
     }
 }
 
-#define DETOUR_FUNC(type, name, addr, params, args) \
-static void __fastcall name(type* self, void* edx, params) \
-{ \
-    Detour_RunInternal(addr, self, edx, args); \
-}
-
-DETOUR_FUNC(Sexy::Widget, Detour_TitleScreenDraw, Sexy::TitleScreen_Draw, (Sexy::Graphics* g), (g))
-
-//static void __fastcall Detour_TitleScreenDraw(Sexy::Widget* self, void* edx, Sexy::Graphics* g)
-//{
-//    Detour_RunInternal(Sexy::TitleScreen_Draw, self, edx, g);
-//}
-
-static void __fastcall Detour_BoardKeyDown(Sexy::Board* self, void* edx, int key)
-{
-    Detour_RunInternal(Sexy::Board_KeyDown, self, edx, key);
-}
-
 bool Algae_InstallEventHooks()
 {
     bool result = true;
 
-    // Go through all known hooks and register them with MinHook
-    // TODO macro approach?
-
-
-
     void* trampoline = nullptr;
-    result &= Algae_CreateHook(Sexy::TitleScreen_Draw, &Detour_TitleScreenDraw, &trampoline);
+    result &= Algae_CreateHook(Sexy::TitleScreen_Draw, &Detour_TitleScreen_Draw, &trampoline);
     // Store the trampoline in a map for later
-    algaeFuncStore[Sexy::TitleScreen_Draw] = reinterpret_cast<uintptr_t>(trampoline);
+    
 
-    result &= Algae_CreateHook(Sexy::Board_KeyDown, &Detour_BoardKeyDown, &trampoline);
+    result &= Algae_CreateHook(Sexy::Board_KeyDown, &Detour_Board_KeyDown, &trampoline);
     // Store the trampoline in a map for later
     algaeFuncStore[Sexy::Board_KeyDown] = reinterpret_cast<uintptr_t>(trampoline);
 

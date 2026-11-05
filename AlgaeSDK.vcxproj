@@ -69,6 +69,7 @@
     <ClCompile Include="deps\minhook\src\hde\hde32.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AlgaeHooks.h" />
     <ClInclude Include="include\AlgaeSDK.h" />
     <ClInclude Include="deps\minhook\include\MinHook.h" />
     <ClInclude Include="include\AlgaeTools.h" />
