@@ -3,6 +3,7 @@
 #include <vector>
 #include <AlgaeSDK.h>
 
+
 std::unordered_map<uintptr_t, uintptr_t> algaeFuncStore;
 std::unordered_map<uintptr_t, uintptr_t> algaeHookOverrides;
 std::unordered_map<uintptr_t, std::vector<uintptr_t>> algaePreHooks;

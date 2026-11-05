@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\AlgaeSDK.cpp" />
+    <ClCompile Include="deps\minhook\src\hde\hde32.c">
+      <Filter>Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\minhook\src\hook.c">
+      <Filter>Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\minhook\src\trampoline.c">
+      <Filter>Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\minhook\src\buffer.c">
+      <Filter>Dependencies</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="deps\minhook\include\MinHook.h" />
+    <ClInclude Include="include\AlgaeHooks.h" />
+    <ClInclude Include="include\AlgaeSDK.h" />
+    <ClInclude Include="include\AlgaeTools.h" />
+    <ClInclude Include="include\Sexy\Board.h" />
+    <ClInclude Include="include\Sexy\Color.h" />
+    <ClInclude Include="include\Sexy\Font.h" />
+    <ClInclude Include="include\Sexy\GameObject.h" />
+    <ClInclude Include="include\Sexy\GameUtil.h" />
+    <ClInclude Include="include\Sexy\Graphics.h" />
+    <ClInclude Include="include\Sexy\Resources.h" />
+    <ClInclude Include="include\Sexy\TitleScreen.h" />
+    <ClInclude Include="include\Sexy\Widget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Dependencies">
+      <UniqueIdentifier>{66242454-9f22-4463-aeef-3470bf0f922c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

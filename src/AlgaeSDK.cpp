@@ -1,8 +1,9 @@
 #define ALGAE_SDK_BUILD
+#include <sstream>
+#include <MinHook.h>
 #include <AlgaeSDK.h>
 #include <AlgaeHooks.h>
-#include <MinHook.h>
-#include <sstream>
+
 
 static void OnTitleScreenDraw(Sexy::TitleScreen* self, Sexy::Graphics* g);
 

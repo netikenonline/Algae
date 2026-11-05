@@ -1,19 +1,17 @@
 #pragma once
-
 #include <windows.h>
 #include <string>
-
 #include <Sexy/Board.h>
 #include <Sexy/Color.h>
 #include <Sexy/Font.h>
 #include <Sexy/GameObject.h>
-#include <Sexy/Graphics.h>
 #include <Sexy/GameUtil.h>
-#include <Sexy/Res.h>
+#include <Sexy/Graphics.h>
+#include <Sexy/Resources.h>
 #include <Sexy/TitleScreen.h>
 #include <Sexy/Widget.h>
-
 #include <AlgaeTools.h>
+
 
 namespace Algae
 {

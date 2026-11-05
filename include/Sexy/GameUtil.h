@@ -1,8 +1,12 @@
 #pragma once
 #include <AlgaeTools.h>
 
+
 namespace Sexy
 {
+    class Font;
+    class Graphics;
+
     inline constexpr uintptr_t GameUtil_DrawStringWithOutline = 0x500BF0;
 
     class GameUtil

@@ -1,10 +1,11 @@
 #pragma once
 #include <AlgaeTools.h>
 
-class GameObject;
 
 namespace Sexy
 {
+    class GameObject;
+
     inline constexpr uintptr_t Board_KeyDown = 0x540650;
     inline constexpr uintptr_t Board_DropGuppy = 0x546D70;
 

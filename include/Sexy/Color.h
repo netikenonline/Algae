@@ -1,6 +1,7 @@
 #pragma once
 #include <AlgaeTools.h>
 
+
 namespace Sexy
 {
     // Just need to pass some bytes, no need for a Color API tbh (famous last words)

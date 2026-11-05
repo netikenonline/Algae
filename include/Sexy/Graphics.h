@@ -1,8 +1,12 @@
 #pragma once
+#include <Sexy/Color.h>
 #include <AlgaeTools.h>
+
 
 namespace Sexy
 {
+    class Font;
+
     inline constexpr uintptr_t Graphics_GetFont     = 0x455870;
     inline constexpr uintptr_t Graphics_SetFont     = 0x455880;
     inline constexpr uintptr_t Graphics_GetColor    = 0x4558B0;

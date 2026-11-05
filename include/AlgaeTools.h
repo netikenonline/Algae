@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace Algae
 {
     // Helper function for calling functions based on address, this and args

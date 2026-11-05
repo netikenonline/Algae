@@ -69,9 +69,9 @@
     <ClCompile Include="deps\minhook\src\hde\hde32.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="deps\minhook\include\MinHook.h" />
     <ClInclude Include="include\AlgaeHooks.h" />
     <ClInclude Include="include\AlgaeSDK.h" />
-    <ClInclude Include="deps\minhook\include\MinHook.h" />
     <ClInclude Include="include\AlgaeTools.h" />
     <ClInclude Include="include\Sexy\Board.h" />
     <ClInclude Include="include\Sexy\Color.h" />
@@ -79,7 +79,7 @@
     <ClInclude Include="include\Sexy\GameObject.h" />
     <ClInclude Include="include\Sexy\GameUtil.h" />
     <ClInclude Include="include\Sexy\Graphics.h" />
-    <ClInclude Include="include\Sexy\Res.h" />
+    <ClInclude Include="include\Sexy\Resources.h" />
     <ClInclude Include="include\Sexy\TitleScreen.h" />
     <ClInclude Include="include\Sexy\Widget.h" />
   </ItemGroup>

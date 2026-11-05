@@ -1,6 +1,7 @@
 #pragma once
 #include <AlgaeTools.h>
 
+
 namespace Sexy
 {
     inline constexpr size_t Font_StringWidth_Offset = 0x1C;

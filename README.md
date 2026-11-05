@@ -61,24 +61,41 @@ If you are looking to build the project on Linux or Mac, I will get around to lo
 
 ## Writing your own mods
 
-Information will eventually be provided in the Wiki, including setup and documentation.
+Information will eventually be provided in the [Wiki](../../wiki), including project setup and documentation.
 
 ## Roadmap
 
 Currently (as of 2026/11/05), Algae is severely under-developed, with just a few hooks and some basic functions provided. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
 
+#### Next
+
+- [ ] Add more event hooks to the SDK
+  - Hooks for fish, pet and alien events
+    - On fish eat, on click, on change size, update, draw (to name a few)
+    - Each pet probably has unique behaviors worth hooking into
+    - Same for aliens
+  - Hook on board load
+  - Hook into item buttons
+    - Still need to look into that, unsure how it works
+  - Hook on main menu load
+    - Want modders to be able to do whatever they want there too
+- [ ] Add an Algae mod menu on the main menu
+- [ ] Implement some kind of mod ordering or dependency setup
+  - Some mods could depend on others, or should load first
+- [ ] Work on an SDK versioning scheme I actually like
+- [ ] Add a resource overriding system (add your own assets without overwriting game files)
+- [ ] Implement config file ini (kinda like Unity Doorstop's)
+- [ ] WinXP (or some baseline OS) compatibility?
+- [ ] Support for adding new game types (fish? aliens? items?)
+  - Ties in somewhat with adding more gameplay-related event hooks
+
+#### Done
+
 - [x] Build out a proper logging system
 - [x] Fix folder structure and naming conventions (unhappy with it at the moment)
 - [x] Build out std::string interop (turns out we can't just pass a 2022 std::string to 2005, need to figure out a solution)
-- [ ] Implement config file ini (kinda like Unity Doorstop's)
 - [x] Identify Steam and non-Steam builds and adjust addressing according to each version
   - Thankfully they're the same, Steam just has an extra DRM step we can work around
-- [ ] Work on an SDK versioning scheme I actually like
-- [ ] Add more event hooks to the SDK
-- [ ] Add a resource overriding system (add your own assets without overwriting game files)
-- [ ] Add an Algae mod menu on the main menu
-- [ ] WinXP (or some baseline OS) compatibility?
-- [ ] Adding new game object types (fish? aliens? items?)
 
 ## AI Disclosure
 
