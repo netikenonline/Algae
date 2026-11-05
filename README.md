@@ -6,21 +6,46 @@ It is heavily inspired by [Haggle](https://github.com/PeggleCommunity/haggle), a
 
 Algae is currently *very* early in development! The current state of affairs can be seen down in the [Roadmap](#roadmap) section. If you have a suggestion or comment, please open an [Issue](../../issues) and label it as such, it would be much appreciated!
 
-**Note:** Algae is currently **not** ready for the Steam version of Insaniquarium! I have built the project against a standalone copy, but I will get around to it soon.
-
-## How to Install
+## Installing SDK and Mods
 
 First, go to the [Releases](../../releases/latest) page and download the ZIP file from the latest version there. Inside should be a few things that you will need.
 
-Next, you will need to locate your file directory for Insaniquarium. If you have it on Steam, right-click on it in your Library and select "*Manage -> Browse Local Files*", or use the right-click "*Open file location*" if you have it as a standalone Windows copy (as I have).
+Next, you will need to locate your file directory for Insaniquarium. There are two methods for doing this depending on if you are using the Retail or Steam copy of the game:
 
-Lastly, you will simply need to extract the files from the ZIP into the file directory where your game is located. That's it!
+<details>
+<summary><b>Retail</b><hr></summary>
 
-## Installing Mods
+You can right-click on the shortcut in your Start menu or Desktop and select "*Open file location*", or navigate to its default install location: "**C:\Program Files (x86)\Insaniquarium**".
 
-Mods, configs and logs will all be found in the same place as Insaniquarium's location for user data: "**C:\ProgramData\PopCap Games\Insaniquarium\Algae**". You may need to create the "Algae" folder if it does not exist yet.
+For installing mods, you will need to navigate to another folder to drop those: "**C:\ProgramData\PopCap Games\Insaniquarium**". More info is below.
+</details>
+<br>
 
-To install mods, you will simply need to drop their files into the "mods" folder in there, and they should be loaded when the game starts up.
+<details>
+<summary><b>Steam</b><hr></summary>
+
+The Steam copy of the game is a bit unique, the game is actually extracted and ran in another folder. Because of this DRM measure, you will need to navigate to that folder.
+
+On Windows: "**C:\ProgramData\PopCap Games\Insaniquarium**"
+
+Through Proton (Linux), it *may* be here: "**~/.steam/debian-installation/steamapps/compatdata/3320/pfx/drive_c/ProgramData/PopCap Games/Insaniquarium**" (or a similar path depending on where your Steam folder is set up, but everything after "**compatdata**" should match).
+
+Also, if you are using Proton (Linux), make sure to complete the [extra step required](#proton---modifying-launch-settings) as well.
+</details>
+<br>
+
+Once you found your folder, you will simply need to extract the files included from the ZIP file in there. The SDK part is done!
+
+For mods, you will need to add them in this location (or if following the Retail steps, the aforementioned "mods" folder). Create a folder named "**Algae**" if it does not exist yet, and then in there, create another one named "**mods**". This is where you will place all of your Algae mods.
+
+## Proton - Modifying Launch Settings
+
+If you are playing the game through Proton, there is just one extra step you will need to do:
+
+1) Right-click on the game in your Library and select "*Properties...*"
+2) In the Launch Options box, paste these arguments there: `WINEDLLOVERRIDES="winmm=n,b" %command%`
+
+The reason for this requirement is because on Windows, applications search their immediate folder for certain specific DLL's (like "**winmm.dll**") before checking system folders for them, while on Proton, it seems to work the other way around. This command ensures the game will check around itself first ("native" DLL's), before looking for the "built-in" ones.
 
 ## Building
 
@@ -37,7 +62,7 @@ Information will eventually be provided in the Wiki, including setup and documen
 
 ## Roadmap
 
-Currently (as of 2026/11/03), Algae is severely under-developed, with just one hook (TitleScreen::Draw) and some basic functions for getting text up on the loading screen. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
+Currently (as of 2026/11/04), Algae is severely under-developed, with just a few hooks and some basic functions provided. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
 
 - [x] Build out a proper logging system
 - [x] Fix folder structure and naming conventions (unhappy with it at the moment)
