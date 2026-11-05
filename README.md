@@ -14,15 +14,17 @@ Next, you will need to locate your file directory for Insaniquarium. There are t
 
 <details>
 <summary><b>Retail</b><hr></summary>
+<blockquote>
 
 You can right-click on the shortcut in your Start menu or Desktop and select "*Open file location*", or navigate to its default install location: "**C:\Program Files (x86)\Insaniquarium**".
 
 For installing mods, you will need to navigate to another folder to drop those: "**C:\ProgramData\PopCap Games\Insaniquarium**". More info is below.
+</blockquote>
 </details>
-<br>
 
 <details>
 <summary><b>Steam</b><hr></summary>
+<blockquote>
 
 The Steam copy of the game is a bit unique, the game is actually extracted and ran in another folder. Because of this DRM measure, you will need to navigate to that folder.
 
@@ -31,6 +33,7 @@ On Windows: "**C:\ProgramData\PopCap Games\Insaniquarium**"
 Through Proton (Linux), it *may* be here: "**~/.steam/debian-installation/steamapps/compatdata/3320/pfx/drive_c/ProgramData/PopCap Games/Insaniquarium**" (or a similar path depending on where your Steam folder is set up, but everything after "**compatdata**" should match).
 
 Also, if you are using Proton (Linux), make sure to complete the [extra step required](#proton---modifying-launch-settings) as well.
+</blockquote>
 </details>
 <br>
 
@@ -62,19 +65,18 @@ Information will eventually be provided in the Wiki, including setup and documen
 
 ## Roadmap
 
-Currently (as of 2026/11/04), Algae is severely under-developed, with just a few hooks and some basic functions provided. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
+Currently (as of 2026/11/05), Algae is severely under-developed, with just a few hooks and some basic functions provided. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
 
 - [x] Build out a proper logging system
 - [x] Fix folder structure and naming conventions (unhappy with it at the moment)
 - [x] Build out std::string interop (turns out we can't just pass a 2022 std::string to 2005, need to figure out a solution)
 - [ ] Implement config file ini (kinda like Unity Doorstop's)
 - [x] Identify Steam and non-Steam builds and adjust addressing according to each version
-  - No difference, learned more while testing and googling, should have more info soon
+  - Thankfully they're the same, Steam just has an extra DRM step we can work around
 - [ ] Work on an SDK versioning scheme I actually like
 - [ ] Add more event hooks to the SDK
 - [ ] Add a resource overriding system (add your own assets without overwriting game files)
 - [ ] Add an Algae mod menu on the main menu
-- [ ] Algae SDK versioning?
 - [ ] WinXP (or some baseline OS) compatibility?
 - [ ] Adding new game object types (fish? aliens? items?)
 
