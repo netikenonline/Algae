@@ -13,7 +13,6 @@
 #include <Sexy/Widget.h>
 
 #include <AlgaeTools.h>
-#include <AlgaeHooks.h>
 
 namespace Algae
 {

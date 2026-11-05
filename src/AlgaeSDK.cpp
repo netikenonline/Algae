@@ -127,19 +127,3 @@ void Detour_RunInternal(uintptr_t funcPtr, T self, void* edx, Args... args)
         RunPostHooks(funcPtr, self, args...);
     }
 }
-
-bool Algae_InstallEventHooks()
-{
-    bool result = true;
-
-    void* trampoline = nullptr;
-    result &= Algae_CreateHook(Sexy::TitleScreen_Draw, &Detour_TitleScreen_Draw, &trampoline);
-    // Store the trampoline in a map for later
-    
-
-    result &= Algae_CreateHook(Sexy::Board_KeyDown, &Detour_Board_KeyDown, &trampoline);
-    // Store the trampoline in a map for later
-    algaeFuncStore[Sexy::Board_KeyDown] = reinterpret_cast<uintptr_t>(trampoline);
-
-    return result;
-}
