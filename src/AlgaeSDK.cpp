@@ -27,7 +27,7 @@ ALGAE_API_DECL bool Algae_Init(const ModHost* host)
         return false;
     }
 
-    Algae_AddPostHook(Sexy::TitleScreen_Draw, OnTitleScreenDraw);
+    Algae_AddPostHook(Sexy::Addr::TitleScreen_Draw, OnTitleScreenDraw);
 
     return true;
 }

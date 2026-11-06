@@ -4,8 +4,6 @@
 static void __cdecl DrawModLoaded(Sexy::Widget* self, Sexy::Graphics* g)
 {
     Sexy::Font* font = Algae::ReadGlobal<Sexy::Font*>(Sexy::FONT_JUNGLEFEVER17OUTLINE);
-    if (font == nullptr)
-        return;
 
     std::string text = "Hello World!";
     Sexy::Font* oldFont = g->GetFont();
@@ -22,6 +20,6 @@ static void __cdecl DrawModLoaded(Sexy::Widget* self, Sexy::Graphics* g)
 
 extern "C" __declspec(dllexport) void ModInit(const ModHost* host)
 {
-    Algae_AddPostHook(Sexy::TitleScreen_Draw, DrawModLoaded);
+    Algae_AddPostHook(Sexy::Addr::TitleScreen_Draw, DrawModLoaded);
     Algae_Log("ExampleMod initialized!");
 }

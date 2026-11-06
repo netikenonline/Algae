@@ -4,7 +4,10 @@
 
 namespace Sexy
 {
-    inline constexpr size_t Font_StringWidth_Offset = 0x1C;
+    namespace Addr
+    {
+        inline constexpr size_t Font_StringWidth_Offset = 0x1C;
+    }
 
     class Font
     {
@@ -12,7 +15,7 @@ namespace Sexy
         inline int StringWidth(const std::string& str)
         {
             Algae::OldString oStr(str);
-            return Algae::CallVirtual<int>(Font_StringWidth_Offset, this, &oStr);
+            return Algae::CallVirtual<int>(Addr::Font_StringWidth_Offset, this, &oStr);
         }
     };
 }
