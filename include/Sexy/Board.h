@@ -56,7 +56,7 @@ namespace Sexy
     inline constexpr uintptr_t Board_BuyEggPiece                = 0x545960;
     inline constexpr uintptr_t Board_GoToBonusRound             = 0x53DC10;
     inline constexpr uintptr_t Board_DrawWavyText               = 0x53DC50;
-    inline constexpr uintptr_t Board_AddBreeder                 = 0x5470A0;
+    inline constexpr uintptr_t Board_DropBreeder                = 0x5470A0;
     inline constexpr uintptr_t Board_PlayBirthSound             = 0x5382C0;
     inline constexpr uintptr_t Board_FindVirtualFish            = 0x53A810;
     inline constexpr uintptr_t Board_ShowVirtualFish            = 0x5449C0;

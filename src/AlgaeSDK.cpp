@@ -32,11 +32,6 @@ ALGAE_API_DECL bool Algae_Init(const ModHost* host)
     return true;
 }
 
-ALGAE_API_DECL int Algae_GetVersion()
-{
-    return ALGAE_SDK_VERSION;
-}
-
 ALGAE_API_DECL void Algae_Log(const char* format, ...)
 {
     // Best way I can think of is pack into buf now so it can be passed over

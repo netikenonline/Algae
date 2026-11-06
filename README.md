@@ -82,7 +82,6 @@ Currently (as of 2026/11/05), Algae is severely under-developed, with just a few
 - [ ] Add an Algae mod menu on the main menu
 - [ ] Implement some kind of mod ordering or dependency setup
   - Some mods could depend on others, or should load first
-- [ ] Work on an SDK versioning scheme I actually like
 - [ ] Add a resource overriding system (add your own assets without overwriting game files)
 - [ ] Implement config file ini (kinda like Unity Doorstop's)
 - [ ] WinXP (or some baseline OS) compatibility?
@@ -96,6 +95,7 @@ Currently (as of 2026/11/05), Algae is severely under-developed, with just a few
 - [x] Build out std::string interop (turns out we can't just pass a 2022 std::string to 2005, need to figure out a solution)
 - [x] Identify Steam and non-Steam builds and adjust addressing according to each version
   - Thankfully they're the same, Steam just has an extra DRM step we can work around
+- [x] Work on an SDK versioning scheme (settled on good ol' SemVer)
 
 ## AI Disclosure
 

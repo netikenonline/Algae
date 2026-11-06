@@ -95,13 +95,12 @@ static int WINAPI Hook_WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR
     MH_DisableHook((LPVOID)Algae::Addr::WinMain);
     MH_Uninitialize();
 
-    gHost.Version = ALGAE_SDK_VERSION;
     gHost.GameDir = gGameDir;
     gHost.AlgaeDir = gAlgaeDir;
     gHost.ModsDir = gModsDir;
     gHost.Log = Log;
 
-    Log("[ALGAE] Hello from WinMain hook! Now setting up Algae SDK v%d...", ALGAE_SDK_VERSION);
+    Log("[ALGAE] Hello from WinMain hook! Now setting up Algae SDK v%s...", ALGAE_SDK_VERSION);
 
     // Load up Algae SDK and then mods after
     wchar_t sdkPath[MAX_PATH];
