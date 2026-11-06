@@ -16,9 +16,9 @@ Next, you will need to locate your file directory for Insaniquarium. There are t
 <summary><b>Retail</b><hr></summary>
 <blockquote>
 
-You can right-click on the shortcut in your Start menu or Desktop and select "*Open file location*", or navigate to its default install location: "**C:\Program Files (x86)\Insaniquarium**".
+You can right-click on the shortcut in your Start menu or Desktop and select "*Open file location*", or navigate to its default install location: "**C:\Program Files (x86)\Insaniquarium**". This is where you will install your Algae DLL files, *not mods*.
 
-For installing mods, you will need to navigate to another folder to drop those: "**C:\ProgramData\PopCap Games\Insaniquarium**". More info is below.
+Algae mods will go into a different folder than this! Navigate here and then follow the proceeding steps below: "**C:\ProgramData\PopCap Games\Insaniquarium**".
 </blockquote>
 </details>
 
@@ -37,9 +37,11 @@ Also, if you are using Proton (Linux), make sure to complete the [extra step req
 </details>
 <br>
 
-Once you found your folder, you will simply need to extract the files included from the ZIP file in there. The SDK part is done!
+Once you found your game folder, you will simply need to extract the files **winmm.dll** and **AlgaeSDK.dll** included from the ZIP file in there.
 
-For mods, you will need to add them in this location (or if following the Retail steps, the aforementioned "mods" folder). Create a folder named "**Algae**" if it does not exist yet, and then in there, create another one named "**mods**". This is where you will place all of your Algae mods.
+Next, you will need to install the "Core" mod provided with Algae. In the same location (or if following the Retail steps, the aforementioned "mods" folder), create a folder named "**Algae**" if it does not exist yet. Then, take the "mods" folder provided in the ZIP file, and drop it in your "**Algae**" folder. (All other mods will be placed in here as well, so have this location handy!)
+
+You are done! The Core mod alone provides a lot of updates and fixes to the base game.
 
 ## Proton - Modifying Launch Settings
 
@@ -63,9 +65,11 @@ If you are looking to build the project on Linux or Mac, I will get around to lo
 
 Information will eventually be provided in the [Wiki](../../wiki), including project setup and documentation.
 
+More information about the Algae "Core" mod can be found at its own [repository](https://github.com/netikenonline/Algae-CoreMod).
+
 ## Roadmap
 
-Currently (as of 2026/11/05), Algae is severely under-developed, with just a few hooks and some basic functions provided. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
+Currently (as of 2026/11/06), Algae is severely under-developed, with just a few hooks and some basic functions provided. However, despite having limited time to work on it, there is some progress, and I decided that it is far enough along that I'm happy with publishing it. Please follow along as I continue working on it!
 
 #### Next
 
