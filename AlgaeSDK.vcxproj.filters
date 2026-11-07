@@ -35,6 +35,9 @@
     <ClInclude Include="include\Sexy\WidgetManager.h" />
     <ClInclude Include="include\Sexy\ButtonWidget.h" />
     <ClInclude Include="include\Sexy\WidgetContainer.h" />
+    <ClInclude Include="include\AlgaeHelper.h" />
+    <ClInclude Include="include\Sexy\Rect.h" />
+    <ClInclude Include="include\Sexy\Image.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Dependencies">

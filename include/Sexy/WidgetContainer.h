@@ -14,9 +14,12 @@ namespace Sexy
 
         // Variables
 
-        inline constexpr uintptr_t WidgetContainer_mWidgets         = 0x04;
-        inline constexpr uintptr_t WidgetContainer_mWidgetManager   = 0x10;
-        inline constexpr uintptr_t WidgetContainer_mHeight          = 0x3C;
+        inline constexpr uintptr_t WidgetContainer_mWidgets         = 0x04; // std::list<Widget*>
+        inline constexpr uintptr_t WidgetContainer_mWidgetManager   = 0x10; // WidgetManager*
+        inline constexpr uintptr_t WidgetContainer_mX               = 0x30; // int
+        inline constexpr uintptr_t WidgetContainer_mY               = 0x34; // int
+        inline constexpr uintptr_t WidgetContainer_mWidth           = 0x38; // int
+        inline constexpr uintptr_t WidgetContainer_mHeight          = 0x3C; // int
     }
 
     class Widget;

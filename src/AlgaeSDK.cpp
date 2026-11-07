@@ -73,6 +73,22 @@ ALGAE_API_DECL void Algae_SetOverrideHook(uintptr_t target, void* hook)
 }
 
 template<class... Args>
+static void RunOverrideHook(uintptr_t func, Args... args)
+{
+    DWORD callbackFault = 0;
+
+    __try
+    {
+        reinterpret_cast<void(*)(Args...)>(algaeHookOverrides[func])(args...);
+    }
+    __except (callbackFault = GetExceptionCode(), EXCEPTION_EXECUTE_HANDLER)
+    {
+        // TODO build SEH exception mapping... and probably a hook name mapping too, would be helpful.
+        Algae_Log("[ALGAE] an override hook on 0x%08X crashed with exception 0x%08X!", (unsigned)func, (unsigned)callbackFault);
+    }
+}
+
+template<class... Args>
 static void RunPreHooks(uintptr_t func, Args... args)
 {
     DWORD callbackFault = 0;
@@ -116,8 +132,8 @@ void Detour_RunInternal(uintptr_t funcPtr, T self, void* edx, Args... args)
     auto overrideKV = algaeHookOverrides.find(funcPtr);
     if (overrideKV != algaeHookOverrides.end())
     {
-        // TODO work on this later
-        //RunOverrideHooks(funcPtr, self, args...);
+        // Run override only (no pre, post or trampoline)
+        RunOverrideHook(funcPtr, self, args...);
     }
     else
     {

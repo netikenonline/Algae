@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\minhook\include\MinHook.h" />
+    <ClInclude Include="include\AlgaeHelper.h" />
     <ClInclude Include="include\AlgaeHooks.h" />
     <ClInclude Include="include\AlgaeSDK.h" />
     <ClInclude Include="include\AlgaeTools.h" />
@@ -82,7 +83,9 @@
     <ClInclude Include="include\Sexy\GameObject.h" />
     <ClInclude Include="include\Sexy\GameUtil.h" />
     <ClInclude Include="include\Sexy\Graphics.h" />
+    <ClInclude Include="include\Sexy\Image.h" />
     <ClInclude Include="include\Sexy\MainScreen.h" />
+    <ClInclude Include="include\Sexy\Rect.h" />
     <ClInclude Include="include\Sexy\Resources.h" />
     <ClInclude Include="include\Sexy\TitleScreen.h" />
     <ClInclude Include="include\Sexy\Widget.h" />

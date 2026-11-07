@@ -83,6 +83,7 @@ DETOUR_FUNC(Sexy::Board, Board_KeyDown, int, key)
 DETOUR_FUNC(Sexy::MainScreen, MainScreen_AddedToManager, Sexy::WidgetManager*, w)
 DETOUR_FUNC(Sexy::MainScreen, MainScreen_RemovedFromManager, Sexy::WidgetManager*, w)
 DETOUR_FUNC(Sexy::MainScreen, MainScreen_OrderInManagerChanged)
+DETOUR_FUNC(Sexy::MainScreen, MainScreen_Draw, Sexy::Graphics*, g)
 DETOUR_FUNC(Sexy::TitleScreen, TitleScreen_Draw, Sexy::Graphics*, g)
 
 bool Algae_InstallEventHooks()
@@ -98,6 +99,7 @@ bool Algae_InstallEventHooks()
     DETOUR_REGISTER(MainScreen_AddedToManager)
     DETOUR_REGISTER(MainScreen_RemovedFromManager)
     DETOUR_REGISTER(MainScreen_OrderInManagerChanged)
+    DETOUR_REGISTER(MainScreen_Draw)
     DETOUR_REGISTER(Board_KeyDown)
 
     return result;

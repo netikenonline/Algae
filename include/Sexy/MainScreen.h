@@ -11,6 +11,8 @@ namespace Sexy
         inline constexpr uintptr_t MainScreen_AddedToManager = 0x51EF10;
         inline constexpr uintptr_t MainScreen_RemovedFromManager = 0x517660;
         inline constexpr uintptr_t MainScreen_OrderInManagerChanged = 0x517720;
+        inline constexpr uintptr_t MainScreen_Draw = 0x51E690;
+
         inline constexpr uintptr_t MainScreen_ButtonListener_Offset = 0x88;
     }
 
