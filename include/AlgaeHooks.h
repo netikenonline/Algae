@@ -79,8 +79,11 @@ static void __fastcall Detour_##addr(type* self, void* edx, aType0 arg0, aType1 
 DETOUR_FUNC_9, ERROR, DETOUR_FUNC_8, ERROR, DETOUR_FUNC_7, ERROR, DETOUR_FUNC_6, ERROR, DETOUR_FUNC_5, ERROR,  \
 DETOUR_FUNC_4, ERROR, DETOUR_FUNC_3, ERROR, DETOUR_FUNC_2, ERROR, DETOUR_FUNC_1, DETOUR_FUNC_0)(type, target, __VA_ARGS__) )
 
-DETOUR_FUNC(Sexy::TitleScreen, TitleScreen_Draw, Sexy::Graphics*, g)
 DETOUR_FUNC(Sexy::Board, Board_KeyDown, int, key)
+DETOUR_FUNC(Sexy::MainScreen, MainScreen_AddedToManager, Sexy::WidgetManager*, w)
+DETOUR_FUNC(Sexy::MainScreen, MainScreen_RemovedFromManager, Sexy::WidgetManager*, w)
+DETOUR_FUNC(Sexy::MainScreen, MainScreen_OrderInManagerChanged)
+DETOUR_FUNC(Sexy::TitleScreen, TitleScreen_Draw, Sexy::Graphics*, g)
 
 bool Algae_InstallEventHooks()
 {
@@ -92,6 +95,9 @@ bool Algae_InstallEventHooks()
     algaeFuncStore[Sexy::Addr::##target] = reinterpret_cast<uintptr_t>(trampoline);
 
     DETOUR_REGISTER(TitleScreen_Draw)
+    DETOUR_REGISTER(MainScreen_AddedToManager)
+    DETOUR_REGISTER(MainScreen_RemovedFromManager)
+    DETOUR_REGISTER(MainScreen_OrderInManagerChanged)
     DETOUR_REGISTER(Board_KeyDown)
 
     return result;

@@ -1,4 +1,6 @@
 #pragma once
+#include <list>
+#include <string>
 
 
 namespace Algae
@@ -30,6 +32,13 @@ namespace Algae
     inline T ReadGlobal(uintptr_t addr)
     {
         return *reinterpret_cast<T*>(addr);
+    }
+
+    // Helper function for reading the variable of an object given its address and variable offset
+    template<class T>
+    inline T ReadVar(void* obj, uintptr_t offset)
+    {
+        return *reinterpret_cast<T*>(reinterpret_cast<uintptr_t>(obj) + offset);
     }
 
     // C++ has changed how std::strings work from 2005 to modern day, so this class
@@ -66,4 +75,28 @@ namespace Algae
         size_t mSize = 0;
         size_t mRes = 15;
     };
+
+    // C++ has changed how std::lists work from 2005 to modern day, so this class
+    // serves as an interop medium and allows lists to "just work" for modders.
+    template<class T>
+    class OldList
+    {
+    public:
+        OldList(std::list<T> list) { SetInternal(list); }
+        std::list<T> ToList() const { /* TODO convert back? */ };
+    private:
+        // Handle our own value assignment from modern list to old list layout
+        void SetInternal(std::list<T> list)
+        {
+            // TODO copy over mAlloc and mHead, mSize must stay 0
+        }
+
+        void* mAlloc = nullptr;
+        void* mHead = nullptr;
+        size_t mSize = 0;
+    };
+
+    // TODO build bridge between old and new std::list! Layout has changed over the years (rip me)
+    // MSVC 2005: 12 bytes (4 (void* mAlloc), 4 (void* mHead), 4 (uint32_t mSize))
+    // MSVC 2022: 16 bytes (4 (void* mHead), 4 (uint32_t mSize), 4 (void* mProxy), 4 (void* mAlloc))
 }

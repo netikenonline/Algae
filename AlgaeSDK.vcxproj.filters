@@ -29,6 +29,12 @@
     <ClInclude Include="include\Sexy\Resources.h" />
     <ClInclude Include="include\Sexy\TitleScreen.h" />
     <ClInclude Include="include\Sexy\Widget.h" />
+    <ClInclude Include="include\Sexy\DialogButton.h" />
+    <ClInclude Include="include\Sexy\ButtonListener.h" />
+    <ClInclude Include="include\Sexy\MainScreen.h" />
+    <ClInclude Include="include\Sexy\WidgetManager.h" />
+    <ClInclude Include="include\Sexy\ButtonWidget.h" />
+    <ClInclude Include="include\Sexy\WidgetContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Dependencies">

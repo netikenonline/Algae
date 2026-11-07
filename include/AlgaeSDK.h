@@ -2,14 +2,20 @@
 #include <windows.h>
 #include <string>
 #include <Sexy/Board.h>
+#include <Sexy/ButtonListener.h>
+#include <Sexy/ButtonWidget.h>
 #include <Sexy/Color.h>
+#include <Sexy/DialogButton.h>
 #include <Sexy/Font.h>
 #include <Sexy/GameObject.h>
 #include <Sexy/GameUtil.h>
 #include <Sexy/Graphics.h>
+#include <Sexy/MainScreen.h>
 #include <Sexy/Resources.h>
 #include <Sexy/TitleScreen.h>
 #include <Sexy/Widget.h>
+#include <Sexy/WidgetContainer.h>
+#include <Sexy/WidgetManager.h>
 #include <AlgaeTools.h>
 
 
