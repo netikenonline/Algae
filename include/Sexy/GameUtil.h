@@ -8,6 +8,7 @@ namespace Sexy
     {
         inline constexpr uintptr_t GameUtil_DrawStringWithOutline   = 0x500BF0;
         inline constexpr uintptr_t GameUtil_MakeDialogButton        = 0x506820;
+        inline constexpr uintptr_t GameUtil_SafeRemoveWidget        = 0x500FB0;
     }
 
     class ButtonListener;
@@ -30,5 +31,7 @@ namespace Sexy
             Algae::OldString oText(text);
             return reinterpret_cast<DialogButton*(*)(int, ButtonListener*, const Algae::OldString&, Image*)>(Addr::GameUtil_MakeDialogButton)(id, listener, oText, image);
         }
+
+        inline static void SafeRemoveWidget(Widget* widget) { reinterpret_cast<void(*)(Widget*)>(Addr::GameUtil_SafeRemoveWidget)(widget); }
     };
 }
