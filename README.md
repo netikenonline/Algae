@@ -73,6 +73,11 @@ Currently (as of 2026/11/06), Algae is severely under-developed, with just a few
 
 #### Next
 
+- [ ] Image, sound & font loading from disk
+  - Fonts must be created with a special tool provided by PopCap, AFAIK
+  - I think PNG is already supported? Need to figure it out
+- [ ] Resource loading & overriding in-game assets at runtime
+  - Probably hook into base resource manager
 - [ ] Add more event hooks to the SDK
   - Hooks for fish, pet and alien events
     - On fish eat, on click, on change size, update, draw (to name a few)
@@ -100,6 +105,8 @@ Currently (as of 2026/11/06), Algae is severely under-developed, with just a few
 - [x] Identify Steam and non-Steam builds and adjust addressing according to each version
   - Thankfully they're the same, Steam just has an extra DRM step we can work around
 - [x] Work on an SDK versioning scheme (settled on good ol' SemVer)
+- [x] JSON mod manifest parsing
+  - Parsing is in! With JSONC support too (because comments are cool)
 
 ## AI Disclosure
 
@@ -113,4 +120,9 @@ Note that **this can change** in the future, but will be fully disclosed if anyt
 
 Dependencies will be located in the "deps" folder.
 
-Currently, only [MinHook](https://github.com/TsudaKageyu/minhook) is used, as it's an incredibly useful tool for hooking into processes and building callbacks. I don't think any of this would be possible without it (or it would have taken much longer).
+There are a few dependencies needed to build Algae, that are included with the project as submodules:
+
+* [MinHook](https://github.com/TsudaKageyu/minhook), an incredibly useful tool for hooking into processes and building callbacks.
+* [nlohmann/json](https://github.com/nlohmann/json), a library for quickly and reliably parsing JSON in C++.
+
+The licenses for these dependencies can be found at their respective sources.
