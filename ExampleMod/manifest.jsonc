@@ -1,0 +1,8 @@
+{
+    "name": "Example Mod",
+    "version": "1.0.0",
+    "description": "This is an example mod project to get started with!",
+    "creator": "netiken",
+    "iconPath": "images/icon.png", // Purposefully not supplied to test missing icon
+    "resources": []
+}

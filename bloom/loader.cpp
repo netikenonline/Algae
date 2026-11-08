@@ -1,7 +1,15 @@
 #include <chrono>
+#include <filesystem>
+#include <fstream>
+#include <optional>
 #include <shlobj_core.h>
+#include <string>
 #include <MinHook.h>
 #include <AlgaeSDK.h>
+#include <nlohmann/json.hpp>
+
+namespace fs = std::filesystem;
+using json = nlohmann::json;
 
 typedef int (WINAPI* FishWinMain)(HINSTANCE, HINSTANCE, LPSTR, int);
 typedef void(* ModInitFunc)(const ModHost* host);
@@ -48,45 +56,108 @@ static void Log(const char* format, ...)
     }
 }
 
+static std::optional<ModInfo> LoadModInfo(fs::path filePath)
+{
+    ModInfo modInfo;
+    modInfo.dllPath = filePath.string();
+
+    // Parse the manifest JSON in the immediate area ("manifest.jsonc" or ".json" are valid)
+    fs::path jsonPath = filePath.parent_path().append("manifest.jsonc");
+    if (!fs::exists(jsonPath)) jsonPath = filePath.parent_path().append("manifest.json");
+
+    if (fs::exists(jsonPath) && fs::is_regular_file(jsonPath))
+    {
+        std::ifstream jsonFile(jsonPath);
+
+        if (!jsonFile.is_open()) {
+            Log("[ALGAE] Failed to load mod manifest (is the file busy?): %ls", jsonPath.c_str());
+            return std::nullopt;
+        }
+
+        try
+        {
+            // Parse w/ comments support
+            json data = json::parse(jsonFile, nullptr, true, true);
+
+            modInfo.name = data["name"];
+            modInfo.version = data["version"];
+            modInfo.description = data["description"];
+            modInfo.creator = data["creator"];
+            modInfo.iconPath = data["iconPath"];
+
+            for (const auto& res : data["resources"])
+            {
+                modInfo.resources.push_back(ModInfoRes{ res["id"], res["type"], res["path"] });
+            }
+        }
+        catch (const json::parse_error& e)
+        {
+            Log("[ALGAE] Mod manifest parsing error: %s", e.what());
+            return std::nullopt;
+        }
+    }
+    else
+    {
+        Log("[ALGAE] Mod loading without a manifest.jsonc or manifest.json nearby!");
+        return std::nullopt;
+    }
+
+    return modInfo;
+}
+
 static int LoadMods()
 {
-    // TODO recursive file search at some point please!
-
+    // Exit early if no DLL's exist
     wchar_t modPattern[MAX_PATH];
     swprintf_s(modPattern, L"%s\\*.dll", gModsDir);
     WIN32_FIND_DATAW findData;
-    HANDLE find = FindFirstFileW(modPattern, &findData);
-
-    if (find == INVALID_HANDLE_VALUE)
+    if (HANDLE find = FindFirstFileW(modPattern, &findData); find == INVALID_HANDLE_VALUE)
     {
         Log("[ALGAE] No mods found!");
-        return 0; // No mods found (not an error... hopefully)
+        FindClose(find);
+        return 0;
     }
 
     int modCounter = 0;
-    do
+    try
     {
-        wchar_t modPath[MAX_PATH];
-        swprintf_s(modPath, L"%s\\%s", gModsDir, findData.cFileName);
-        HMODULE mod = LoadLibraryW(modPath);
-        if (mod == NULL)
+        for (const auto& file : fs::recursive_directory_iterator(gModsDir, fs::directory_options::skip_permission_denied))
         {
-            Log("[ALGAE] Unknown error occured while loading %ls, skipping.", findData.cFileName);
-            continue;
+            if (file.path().extension() == ".dll")
+            {
+                Log("[ALGAE] Found mod: %ls", file.path());
+                HMODULE mod = LoadLibraryW(file.path().c_str());
+                if (mod == NULL)
+                {
+                    Log("[ALGAE] Unknown error occured while loading %ls, skipping.", file.path().filename().c_str());
+                    continue;
+                }
+                ModInitFunc modInit = (ModInitFunc)GetProcAddress(mod, "ModInit");
+                if (modInit == NULL)
+                {
+                    Log("[ALGAE] Found potential mod %ls but no suitable ModInit exists, skipping.", file.path().filename().c_str());
+                    continue;
+                }
+                auto modInfo = LoadModInfo(file.path());
+                if (!modInfo.has_value())
+                {
+                    Log("[ALGAE] Mod %ls is missing a manifest file or an error occured, skipping.", file.path().filename().c_str());
+                    FreeLibrary(mod);
+                    continue;
+                }
+                gHost.Infos.push_back(modInfo.value());
+                Log("[ALGAE] Starting %ls...", file.path().filename().c_str());
+                modInit(&gHost);
+                modCounter++;
+            }
         }
-        ModInitFunc modInit = (ModInitFunc)GetProcAddress(mod, "ModInit");
-        if (modInit == NULL)
-        {
-            Log("[ALGAE] Found potential mod %ls but no suitable ModInit exists, skipping.", findData.cFileName);
-            continue;
-        }
-        Log("[ALGAE] Starting %ls...", findData.cFileName);
-        modInit(&gHost);
-        modCounter++;
-    } while (FindNextFileW(find, &findData));
-    Log("[ALGAE] Finished mod initialization (%d mod(s) loaded).", modCounter);
-    FindClose(find);
-
+        Log("[ALGAE] Finished mod initialization (%d mod(s) loaded).", modCounter);
+    }
+    catch (const fs::filesystem_error& e)
+    {
+        // idfk what to do, panic?
+        Log("[ALGAE] Filesystem error while reading mods (stopping here): \"%s\"", e.what());
+    }
     return modCounter;
 }
 
@@ -117,7 +188,6 @@ static int WINAPI Hook_WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR
         algaeInit(&gHost);
 
         Log("[ALGAE] Algae SDK initialization finished! Loading mods.");
-
         int modCount = LoadMods();
         gHost.ModCount = modCount;
     }
@@ -151,9 +221,9 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
     PWSTR algaeDir = NULL;
     SHGetKnownFolderPath(FOLDERID_ProgramData, KF_FLAG_CREATE, NULL, &algaeDir);
     swprintf_s(gAlgaeDir, L"%s\\PopCap Games\\Insaniquarium\\Algae", algaeDir);
-    // TODO handle potential error if path doesn't exist (have to boot the game at least once mod-free)
     CreateDirectoryW(gAlgaeDir, NULL);
     swprintf_s(gModsDir, L"%s\\mods", gAlgaeDir);
+    CreateDirectoryW(gModsDir, NULL);
 
     // Initialize logger as early as we can (so various things can access it)
     wchar_t logPath[MAX_PATH];
@@ -164,7 +234,6 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
     Log("[ALGAE] Found game path (GameDir):   %ls", gGameDir);
     Log("[ALGAE] Found Algae path (AlgaeDir): %ls", gAlgaeDir);
     Log("[ALGAE] Found mods path (ModsDir):   %ls", gModsDir);
-    CreateDirectoryW(gModsDir, NULL);
 
     LoadWinMM();
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <string>
+#include <vector>
 #include <Sexy/Board.h>
 #include <Sexy/ButtonListener.h>
 #include <Sexy/ButtonWidget.h>
@@ -44,10 +45,29 @@ namespace Algae
 #define ALGAE_SDK_VERSION_PATCH 1
 #define ALGAE_SDK_VERSION STR(ALGAE_SDK_VERSION_MAJOR) "." STR(ALGAE_SDK_VERSION_MINOR) "." STR(ALGAE_SDK_VERSION_PATCH)
 
+struct ModInfoRes
+{
+    std::string id;
+    std::string type;
+    std::string path;
+};
+
+struct ModInfo
+{
+    std::string dllPath;
+    std::string name;
+    std::string version;
+    std::string description;
+    std::string creator;
+    std::string iconPath;
+    std::vector<ModInfoRes> resources;
+};
+
 struct ModHost
 {
     // Info
     int ModCount;
+    std::vector<ModInfo> Infos;
     // Directories
     const wchar_t* GameDir;
     const wchar_t* AlgaeDir;
