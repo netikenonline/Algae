@@ -38,6 +38,7 @@
     <ClInclude Include="include\AlgaeHelper.h" />
     <ClInclude Include="include\Sexy\Rect.h" />
     <ClInclude Include="include\Sexy\Image.h" />
+    <ClInclude Include="include\Sexy\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Dependencies">

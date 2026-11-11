@@ -86,6 +86,7 @@
     <ClInclude Include="include\Sexy\Image.h" />
     <ClInclude Include="include\Sexy\MainScreen.h" />
     <ClInclude Include="include\Sexy\Rect.h" />
+    <ClInclude Include="include\Sexy\ResourceManager.h" />
     <ClInclude Include="include\Sexy\Resources.h" />
     <ClInclude Include="include\Sexy\TitleScreen.h" />
     <ClInclude Include="include\Sexy\Widget.h" />

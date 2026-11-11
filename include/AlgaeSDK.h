@@ -93,3 +93,15 @@ ALGAE_API_DECL void Algae_AddPostHook(uintptr_t target, void* hook);
 // Replaces a function at the target address with your own.
 // (Use at your own risk!)
 ALGAE_API_DECL void Algae_SetOverrideHook(uintptr_t target, void* hook);
+
+// Loads an image resource from the given path to the game's ResourceManager tied to an ID.
+// Any existing assets with that ID are overriden.
+ALGAE_API_DECL void Algae_AddResourceImage(std::string id, std::string path);
+
+// Loads a sound resource from the given path to the game's ResourceManager tied to an ID.
+// Any existing assets with that ID are overriden.
+ALGAE_API_DECL void Algae_AddResourceSound(std::string id, std::string path);
+
+// Loads a font resource from the given path to the game's ResourceManager tied to an ID.
+// Any existing assets with that ID are overriden.
+ALGAE_API_DECL void Algae_AddResourceFont(std::string id, std::string path);

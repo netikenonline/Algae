@@ -72,6 +72,25 @@ ALGAE_API_DECL void Algae_SetOverrideHook(uintptr_t target, void* hook)
     algaeHookOverrides[target] = reinterpret_cast<uintptr_t>(hook);
 }
 
+ALGAE_API_DECL void Algae_AddResourceImage(std::string id, std::string path)
+{
+    // TODO stub
+    // Check mImageMap if id exists (getting a pointer to the existing resource)
+    // If not, get an ImageRes created with ResourceManager::ParseImageResource and a dummy XMLElement
+    // Else, take existing resource and change its mPath with the new one we want
+}
+
+ALGAE_API_DECL void Algae_AddResourceSound(std::string id, std::string path)
+{
+    // TODO stub
+}
+
+ALGAE_API_DECL void Algae_AddResourceFont(std::string id, std::string path)
+{
+    // TODO stub
+}
+
+
 template<class... Args>
 static void RunOverrideHook(uintptr_t func, Args... args)
 {

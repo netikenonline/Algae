@@ -105,6 +105,33 @@ static std::optional<ModInfo> LoadModInfo(fs::path filePath)
     return modInfo;
 }
 
+static void LoadModResources()
+{
+    for (ModInfo modInfo : gHost.Infos)
+    {
+        for (ModInfoRes modRes : modInfo.resources)
+        {
+            const char* type = modRes.type.c_str();
+            if (_stricmp(type, "image") == 0)
+            {
+                Algae_AddResourceImage(modRes.id, modRes.path);
+            }
+            else if (_stricmp(type, "sound") == 0)
+            {
+                Algae_AddResourceSound(modRes.id, modRes.path);
+            }
+            else if (_stricmp(type, "font") == 0)
+            {
+                Algae_AddResourceFont(modRes.id, modRes.path);
+            }
+            else
+            {
+                Log("[ALGAE] Bad type specifier '%s' for resource '%s'!", type, modRes.id);
+            }
+        }
+    }
+}
+
 static int LoadMods()
 {
     // Exit early if no DLL's exist
@@ -151,6 +178,8 @@ static int LoadMods()
                 modCounter++;
             }
         }
+        Log("[ALGAE] Loading mod resources...");
+        LoadModResources();
         Log("[ALGAE] Finished mod initialization (%d mod(s) loaded).", modCounter);
     }
     catch (const fs::filesystem_error& e)
