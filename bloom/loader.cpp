@@ -14,15 +14,17 @@ using json = nlohmann::json;
 typedef int (WINAPI* FishWinMain)(HINSTANCE, HINSTANCE, LPSTR, int);
 typedef void(* ModInitFunc)(const ModHost* host);
 typedef bool(* AlgaeInitFunc)(const ModHost* host);
+typedef void(* ResFunc)(std::string, std::string);
 
 void LoadWinMM(); // winmm_proxy.cpp
 
 //static CRITICAL_SECTION gLogCrit;
-static HANDLE           gLogFile = INVALID_HANDLE_VALUE;
-static wchar_t          gGameDir[MAX_PATH];
-static wchar_t          gAlgaeDir[MAX_PATH];
-static wchar_t          gModsDir[MAX_PATH];
-static ModHost          gHost;
+static HANDLE       gLogFile = INVALID_HANDLE_VALUE;
+static wchar_t      gGameDir[MAX_PATH];
+static wchar_t      gAlgaeDir[MAX_PATH];
+static wchar_t      gModsDir[MAX_PATH];
+static ModHost      gHost;
+static HMODULE      gSdk;
 
 static std::chrono::steady_clock::time_point algaeStartTime;
 
@@ -114,15 +116,18 @@ static void LoadModResources()
             const char* type = modRes.type.c_str();
             if (_stricmp(type, "image") == 0)
             {
-                Algae_AddResourceImage(modRes.id, modRes.path);
+                ResFunc addResourceImage = (ResFunc)GetProcAddress(gSdk, "Algae_AddResourceImage");
+                addResourceImage(modRes.id, modRes.path);
             }
             else if (_stricmp(type, "sound") == 0)
             {
-                Algae_AddResourceSound(modRes.id, modRes.path);
+                ResFunc addResourceSound = (ResFunc)GetProcAddress(gSdk, "Algae_AddResourceSound");
+                addResourceSound(modRes.id, modRes.path);
             }
             else if (_stricmp(type, "font") == 0)
             {
-                Algae_AddResourceFont(modRes.id, modRes.path);
+                ResFunc addResourceFont = (ResFunc)GetProcAddress(gSdk, "Algae_AddResourceFont");
+                addResourceFont(modRes.id, modRes.path);
             }
             else
             {
@@ -192,7 +197,7 @@ static int LoadMods()
 
 static int WINAPI Hook_WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdLine, int cmdShow)
 {
-    MH_DisableHook((LPVOID)Algae::Addr::WinMain);
+    MH_DisableHook((LPVOID)Sexy::Addr::WinMain);
     MH_Uninitialize();
 
     gHost.GameDir = gGameDir;
@@ -205,15 +210,15 @@ static int WINAPI Hook_WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR
     // Load up Algae SDK and then mods after
     wchar_t sdkPath[MAX_PATH];
     swprintf_s(sdkPath, L"%s\\AlgaeSDK.dll", gGameDir);
-    HMODULE sdk = LoadLibraryW(sdkPath);
-    if (sdk == NULL)
+    gSdk = LoadLibraryW(sdkPath);
+    if (gSdk == NULL)
     {
         Log("[ALGAE] ...either the SDK is missing from your Insaniquarium folder, or may be corrupted. Continuing without mods!");
     }
     else
     {
         Log("[ALGAE] ...found! Initializing...");
-        AlgaeInitFunc algaeInit = (AlgaeInitFunc)GetProcAddress(sdk, "Algae_Init");
+        AlgaeInitFunc algaeInit = (AlgaeInitFunc)GetProcAddress(gSdk, "Algae_Init");
         algaeInit(&gHost);
 
         Log("[ALGAE] Algae SDK initialization finished! Loading mods.");
@@ -224,7 +229,7 @@ static int WINAPI Hook_WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR
     Log("[ALGAE] Algae setup finished. Starting game now!");
 
     // Call original WinMain when done
-    return ((FishWinMain)Algae::Addr::WinMain)(instance, prevInstance, cmdLine, cmdShow);
+    return ((FishWinMain)Sexy::Addr::WinMain)(instance, prevInstance, cmdLine, cmdShow);
 }
 
 BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
@@ -269,7 +274,7 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
     Log("[ALGAE] Initialized winmm.dll passthrough.");
 
     // It's hooking time >:3
-    LPVOID winMainAddr = (LPVOID)Algae::Addr::WinMain;
+    LPVOID winMainAddr = (LPVOID)Sexy::Addr::WinMain;
     MH_STATUS status = MH_Initialize();
     if (status == MH_OK)
     {

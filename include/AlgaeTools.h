@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <map>
 #include <string>
 
 
@@ -76,27 +77,51 @@ namespace Algae
         size_t mRes = 15;
     };
 
-    // C++ has changed how std::lists work from 2005 to modern day, so this class
-    // serves as an interop medium and allows lists to "just work" for modders.
+    // TODO build bridge between old and new std::list! Layout has changed over the years (rip me)
+    // MSVC 2005: 12 bytes (4 (void* mAlloc), 4 (void* mHead), 4 (uint32_t mSize))
+    // MSVC 2022: 16 bytes (4 (void* mHead), 4 (uint32_t mSize), 4 (void* mProxy), 4 (void* mAlloc))
+
+    // C++ has changed how std::lists work from 2005 to modern day, so this class is made to
+    // convert between the two versions and "just work" for modders.
     template<class T>
     class OldList
     {
     public:
-        OldList(std::list<T> list) { SetInternal(list); }
-        std::list<T> ToList() const { /* TODO convert back? */ };
-    private:
-        // Handle our own value assignment from modern list to old list layout
-        void SetInternal(std::list<T> list)
+        std::list<T> ToList() const
         {
-            // TODO copy over mAlloc and mHead, mSize must stay 0
-        }
-
+            /* TODO convert old to new? */
+        };
+        void FromList(std::list<T>)
+        {
+            /* TODO update from new to old? */
+        };
+    private:
         void* mAlloc = nullptr;
         void* mHead = nullptr;
         size_t mSize = 0;
     };
 
-    // TODO build bridge between old and new std::list! Layout has changed over the years (rip me)
-    // MSVC 2005: 12 bytes (4 (void* mAlloc), 4 (void* mHead), 4 (uint32_t mSize))
-    // MSVC 2022: 16 bytes (4 (void* mHead), 4 (uint32_t mSize), 4 (void* mProxy), 4 (void* mAlloc))
+    // TODO build bridge between old and new std::map! Layout has changed over the years
+    // MSVC 2005: 12 bytes (4 (void* mHead), 4 (uint32_t mSize), 4 (void* mAlloc))
+    // MSVC 2022: 8 bytes (4 (void* mHead), 4 (uint32_t mSize))
+
+    // C++ has changed how std::maps work from 2005 to modern day, so this class is made to
+    // convert between the two versions and "just work" for modders.
+    template<class T>
+    class OldMap
+    {
+    public:
+        std::map<T> ToMap() const
+        {
+            /* TODO convert old to new? */
+        };
+        void FromMap(std::map<T>)
+        {
+            /* TODO update from new to old? */
+        };
+    private:
+        void* mHead = nullptr;
+        size_t mSize = 0;
+        void* mAlloc = nullptr;
+    };
 }

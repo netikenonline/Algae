@@ -74,10 +74,22 @@ ALGAE_API_DECL void Algae_SetOverrideHook(uintptr_t target, void* hook)
 
 ALGAE_API_DECL void Algae_AddResourceImage(std::string id, std::string path)
 {
-    // TODO stub
-    // Check mImageMap if id exists (getting a pointer to the existing resource)
-    // If not, get an ImageRes created with ResourceManager::ParseImageResource and a dummy XMLElement
-    // Else, take existing resource and change its mPath with the new one we want
+    Sexy::ResourceManager* resMan = Sexy::ResourceManager::Get();
+    auto mImageMap = Algae::ReadVar<std::map<std::string, Sexy::ImageRes*>>(resMan, Sexy::Addr::ResourceManager_mImageMap);
+
+    Algae_Log("Success? %p", mImageMap);
+
+    auto imageMapItr = mImageMap.find(id);
+    if (imageMapItr != mImageMap.end())
+    {
+        // Resource exists already, overwrite values before load occurs (assuming same resource properties)
+        Sexy::ImageRes* res = imageMapItr->second;
+        res->mPath = path;
+    }
+    else
+    {
+        // Resource is new, add to resource map
+    }
 }
 
 ALGAE_API_DECL void Algae_AddResourceSound(std::string id, std::string path)

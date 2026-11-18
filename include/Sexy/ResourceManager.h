@@ -9,15 +9,24 @@ namespace Sexy
 {
     namespace Addr
     {
-        inline constexpr uintptr_t ResourceManager_DoLoadImage = 0x418D80;
-        inline constexpr uintptr_t ResourceManager_DoLoadSound = 0x419320;
-        inline constexpr uintptr_t ResourceManager_DoLoadFont  = 0x419480;
+        inline constexpr uintptr_t ResourceManager_DoLoadImage  = 0x418D80;
+        inline constexpr uintptr_t ResourceManager_DoLoadSound  = 0x419320;
+        inline constexpr uintptr_t ResourceManager_DoLoadFont   = 0x419480;
+
+        inline constexpr uintptr_t ResourceManager_mImageMap    = 0x10; // std::map<std::string, BaseRes*>
+        inline constexpr uintptr_t ResourceManager_mSoundMap    = 0x1C; // std::map<std::string, BaseRes*>
+        inline constexpr uintptr_t ResourceManager_mFontMap     = 0x28; // std::map<std::string, BaseRes*>
+
+        const uintptr_t SexyAppBase_Instance = 0x5EB680;
+        const uintptr_t SexyAppBase_mResourceManager = 0x634; // ResourceManager*
     }
 
     // A shit ton of declarations to get our resource hacking voodoo to work (good byte offsets are vital to get this to work)
     // Tons of this stuff pulled from (seemingly) official sources: https://github.com/sureandrew/SexyAppFramework
 
     // TODO organize and move this stuff into better places?
+
+    typedef std::map<std::string, BaseRes*> ResMap;
 
     enum ResType
     {
@@ -125,6 +134,8 @@ namespace Sexy
     class ResourceManager
     {
     public:
+        // Should return a handle to the game's ResourceManager object
+        inline static ResourceManager* Get() { return Algae::ReadVar<ResourceManager*>(reinterpret_cast<void*>(Addr::SexyAppBase_Instance), Addr::SexyAppBase_mResourceManager); }
         inline bool DoLoadImage(ImageRes* imageRes) { return Algae::Call<bool>(Addr::ResourceManager_DoLoadImage, this, imageRes); }
         inline bool DoLoadSound(ImageRes* soundRes) { return Algae::Call<bool>(Addr::ResourceManager_DoLoadSound, this, soundRes); }
         inline bool DoLoadFont(ImageRes* fontRes) { return Algae::Call<bool>(Addr::ResourceManager_DoLoadFont, this, fontRes); }

@@ -14,6 +14,7 @@
 #include <Sexy/Image.h>
 #include <Sexy/MainScreen.h>
 #include <Sexy/Rect.h>
+#include <Sexy/ResourceManager.h>
 #include <Sexy/Resources.h>
 #include <Sexy/TitleScreen.h>
 #include <Sexy/Widget.h>
@@ -23,11 +24,12 @@
 #include <AlgaeHelper.h>
 
 
-namespace Algae
+namespace Sexy
 {
     namespace Addr
     {
         const uintptr_t WinMain = 0x5024F0;
+        const uintptr_t LoadingThreadProc = 0x5510B0;
     }
 }
 
